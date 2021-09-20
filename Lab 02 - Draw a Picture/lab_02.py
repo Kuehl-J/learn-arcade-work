@@ -31,7 +31,6 @@ arcade.draw_polygon_filled(((300, 0),
 # arcade.draw_line(700, 0, 700, 1000, arcade.csscolor.BLACK)
 # arcade.draw_line(800, 0, 800, 1000, arcade.csscolor.BLACK)
 # arcade.draw_line(900, 0, 900, 1000, arcade.csscolor.BLACK)
-#
 # arcade.draw_line(0, 100, 1000, 100, arcade.csscolor.BLACK)
 # arcade.draw_line(0, 200, 1000, 200, arcade.csscolor.BLACK)
 # arcade.draw_line(0, 300, 1000, 300, arcade.csscolor.BLACK)
