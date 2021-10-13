@@ -1,85 +1,42 @@
-class Character:
-    """
-    This is a video game character
-    """
-    def __init__(self):
-        """ Create my character"""
-        x = 0
-        self.name = ""
-        self.outfit = ""
-        self.max_hit_points = 0
-        self.current_hit_points = 0
-        self.armor_amount = 0
-        self.max_speed = 0
+import arcade
 
-class Address:
-    """
-    Set up address fields
-    """
-    def __init__(self):
-        self.name = ""
-        self.line1 = ""
-        self.line2 = ""
-        self.city = ""
-        self.state = ""
-        self.zip = ""
+SCREEN_WIDTH = 640
+SCREEN_HEIGHT = 480
 
-def main():
-    home_address = Address()
-    home_address.name = "John Smith"
-    home_address.line1 = "701 N C St"
-    home_address.line2 = "Carver Science Building"
-    home_address.city = "Indianola"
-    home_address.state = "IA"
-    home_address.zip = "50125"
+class Ball:
+    def __init__(self, position_x,
+                 position_y,
+                 change_x,
+                 change_y,
+                 radius,
+                 color):
+        self.position_x = position_x
+        self.position_y = position_y
+        self.change_x = change_x
+        self.change_y = change_y
+        self.radius = radius
+        self.color = color
 
-def print_address(address):
-    #If there is a line1 in the adddress, print it
-    if len(address.line1) > 0:
-        print(address.line1)
-    #If ther is a line2 in the address, print it
-    if len(address)
+class MyGame(arcade.Window):
+    def __init__(self, width, height, title):
+        super().__init__(width, height, title)
+        arcade.set_background_color(arcade.color.ASH_GREY)
+        self.ball_x = 50
+        self.ball_y = 50
 
 
+    def on_draw(self):
+        arcade.start_render()
+        arcade.draw_circle_filled(self.ball_x, self.ball_y, 15, arcade.color.AUBURN)
 
-class Dog
-    def __init__(self, name):
-        """Constructor"""
-
-        self.name = new_name
-        print("A dog has been born!")
+    def on_update(self, delta_time):
+        self.ball_x += 1
 
 def main():
-    #This creates the dog
-    my_dog = Dog("Spot")
-    print(f"The dog's name is:) {my_dog.name}"
 
-    my_other_dog = Dog("Sam")
-    print(f"The dog's name is:) {my_other_dog}")
+    window = arcade.Window(SCREEN_WIDTH, SCREEN_HEIGHT, "Drawing example")
+    arcade.run()
+
+
 
 main()
-
-
-
-
-
-
-
-class Person:
-        def __init__(self):
-
-            self.name; str = "A"
-
-mary = Person()
-mary.name = 22
-
-
-
-@dataclass
-class Address:
-    name: str = ""
-    line1: str = ""
-    line2: str = ""
-    city: str = ""
-    state: str = ""
-    zip_code: str = ""
