@@ -40,7 +40,10 @@ def main():
     room = Room("You barely noticed this path in the darkness, you follow it along until you see an "
                 "intersection. Will you go north or south?", None, None, 9, 6)
     room_list.append(room)
-    room = Room
+    room = Room("You find yourself entering another hallway, similar to the one you were previously in.",
+                7, None, 10, None)
+    room_list.append(room)
+    room = Room()
 
 
 
