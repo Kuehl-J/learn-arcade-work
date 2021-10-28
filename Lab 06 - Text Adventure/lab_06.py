@@ -43,7 +43,9 @@ def main():
     room = Room("You find yourself entering another hallway, similar to the one you were previously in.",
                 7, None, 10, None)
     room_list.append(room)
-    room = Room()
+    room = Room("The small path continues along, you see light coming from a dooreway to the west.", 9, None, None, 12)
+    room_list.append(room)
+    room = Room("The path opens into a large room. You see lots of weird patterns on the wall that give off a faint glow.")
 
 
 
