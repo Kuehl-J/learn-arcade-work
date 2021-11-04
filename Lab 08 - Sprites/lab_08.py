@@ -2,7 +2,7 @@ import random
 import arcade
 
 MOVEMENT_SPEED = 4
-SPRITE_SCALING_PLAYER = 0.5
+SPRITE_SCALING_PLAYER = 0.6
 SPRITE_SCALING_STAR = 0.8
 STAR_COUNT = 50
 
@@ -12,9 +12,16 @@ SCREEN_HEIGHT = 600
 
 class MyGame(arcade.Window):
 
-    def __init__(self):
+    def __init__(self, position_x, position_y, change_x, change_y, radius, color):
 
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Sprite Example")
+
+        self.position_x = position_x
+        self.position_y = position_y
+        self.change_x = change_x
+        self.change_y = change_y
+        self.radius = radius
+        self.color = color
 
         self.set_mouse_visible(False)
 
@@ -31,6 +38,9 @@ class MyGame(arcade.Window):
         self.star_list = arcade.SpriteList()
 
         self.score = 0
+
+        self.position_y += self.change_y
+        self.position_x += self.change_x
 
         self.player_sprite = arcade.Sprite("xwing.png", SPRITE_SCALING_PLAYER)
         self.player_sprite.center_x = 50
@@ -57,6 +67,19 @@ class MyGame(arcade.Window):
     def update(self, delta_time):
 
         self.star_list.update()
+        self.player_sprite.update()
+
+        if self.position_x < self.radius:
+            self.position_x = self.radius
+
+        if self.position_x > SCREEN_WIDTH - self.radius:
+            self.position_x = SCREEN_WIDTH - self.radius
+
+        if self.position_y < self.radius:
+            self.position_y = self.radius
+
+        if self.position_y > SCREEN_HEIGHT - self.radius:
+            self.position_y = SCREEN_HEIGHT - self.radius
 
         star_hit_list = arcade.check_for_collision_with_list(self.player_sprite,
                                                               self.star_list)

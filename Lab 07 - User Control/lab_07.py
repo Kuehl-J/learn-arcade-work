@@ -109,6 +109,7 @@ class MyGame(arcade.Window):
     def update(self, delta_time):
         self.bird.update()
 
+
     def on_key_press(self, key, modifiers):
         if key == arcade.key.LEFT or key == arcade.key.A:
             self.bird.change_x = -MOVEMENT_SPEED
