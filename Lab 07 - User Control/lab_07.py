@@ -9,10 +9,10 @@ def draw_trees(x, y):
     arcade.draw_lrtb_rectangle_filled(x, x + 35, y + 50, y, arcade.color.BISTRE)
     arcade.draw_triangle_filled(x - 40, y + 50,
                                 x + 75, y + 50,
-                                x + 17, y + 200, arcade.color.FOREST_GREEN)
+                                x + 17, y + 200, arcade.color.GREEN)
 
 
-class Fairy:
+class Bfly:
     def __init__(self, position_x, position_y, change_x, change_y, radius, color):
         self.radius = radius
         self.color = color
@@ -91,11 +91,11 @@ class MyGame(arcade.Window):
         # Call the parent class initializer
         super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Lab 7 - User Control")
         self.set_mouse_visible(False)
-        self.mouse_click_sound = arcade.load_sound("explosion1.flac")
+        self.mouse_click_sound = arcade.load_sound("explosion.1.wav")
         self.explosion1_sound_player = None
         arcade.set_background_color(arcade.color.HUNTER_GREEN)
 
-        self.fairy = Fairy(400, 300, 0, 0, 15, arcade.color.BABY_BLUE_EYES)
+        self.bfly = Bfly(400, 300, 0, 0, 15, arcade.color.BABY_BLUE_EYES)
         self.bird = Bird(50, 50, 0, 0, 30, arcade.color.BANANA_MANIA)
 
     def on_mouse_press(self, x, y, button, modifiers):
@@ -103,8 +103,8 @@ class MyGame(arcade.Window):
             arcade.play_sound(self.mouse_click_sound)
 
     def on_mouse_motion(self, x, y, dx, dy):
-        self.fairy.position_x = x
-        self.fairy.position_y = y
+        self.bfly.position_x = x
+        self.bfly.position_y = y
 
     def update(self, delta_time):
         self.bird.update()
@@ -136,7 +136,7 @@ class MyGame(arcade.Window):
         draw_trees(700, 370)
         draw_trees(50, 330)
 
-        self.fairy.draw()
+        self.bfly.draw()
 
         self.bird.draw()
 
