@@ -1,108 +1,70 @@
-""" Sprite Sample Program """
-
 import arcade
+import random
 
-# --- Constants ---
-SPRITE_SCALING_BOX = 0.5
-SPRITE_SCALING_PLAYER = 0.5
+WIDTH = 60
+HEIGHT = 60
+MARGIN = 5
+COLUMN_COUNT = 10
+ROW_COUNT = 10
 
-SCREEN_WIDTH = 800
-SCREEN_HEIGHT = 600
-
-MOVEMENT_SPEED = 5
+SCREEN_WIDTH = (WIDTH + MARGIN) * COLUMN_COUNT + MARGIN
+SCREEN_HEIGHT = (HEIGHT + MARGIN) * ROW_COUNT + MARGIN
 
 
 class MyGame(arcade.Window):
-    """ This class represents the main window of the game. """
+    """
+    Main application class.
+    """
 
-    def __init__(self):
-        """ Initializer """
-        # Call the parent class initializer
-        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Sprites With Walls Example")
+    def __init__(self, width, height):
+        super().__init__(width, height)
 
-        self.player_list = None
-        self.wall_list = None
+        arcade.set_background_color(arcade.color.BLACK)
 
-        self.player_sprite = None
+        #create grid of numbers
+        self.grid = []
+        for row in range(ROW_COUNT):
+            self.grid.append([])
+            for column in range(COLUMN_COUNT):
+                self.grid[row].append(0)
 
-        self.physics_engine = None
-
-
-    def setup(self):
-        # Set the background color
-        arcade.set_background_color(arcade.color.AMAZON)
-
-        self.player_list = arcade.SpriteList()
-        self.wall_list = arcade.SpriteList()
-
-        self.player_sprite = arcade.Sprite("character1.png", SPRITE_SCALING_PLAYER)
-        self.player_sprite.center_x = 64
-        self.player_sprite.center_y = 64
-        self.player_list.append(self.player_sprite)
-
-        wall = arcade.Sprite("boxCrate_double.png", SPRITE_SCALING_BOX)
-        wall.center_x = 300
-        wall.center_y = 200
-        self.wall_list.append(wall)
-
-        wall = arcade.Sprite("boxCrate_double.png", SPRITE_SCALING_BOX)
-        wall.center_x = 364
-        wall.center_y = 200
-        self.wall_list.append(wall)
-
-        for i in range(10):
-            wall = arcade.Sprite("boxCrate_double.png", SPRITE_SCALING_BOX)
-            wall.center_x = i * 64 + 128
-            wall.center_y = 400
-            self.wall_list.append(wall)
-
-            for i in range(100, 600, 64):
-                wall = arcade.Sprite("boxCrate_double.png", SPRITE_SCALING_BOX)
-                wall.center_x = i
-                wall.center_y = 500
-                self.wall_list.append(wall)
-
-        coordinate_list = [[400, 500],
-                            [470, 500],
-                            [400, 570],
-                            [470, 570]]
-
-        for coordinate in coordinate_list:
-            wall = arcade.Sprite("boxCrate_double.png", SPRITE_SCALING_BOX)
-            wall.center_x = coordinate[0]
-            wall.center_y = coordinate[1]
-            self.wall_list.append(wall)
-
-        self.physics_engine = arcade.PhysicsEngineSimple(self.player_sprite, self.wall_list)
-
-    def on_update(self, delta_time):
-        self.physics_engine.update()
+        self.grid[0][1] = 1
+        print(self.grid)
 
     def on_draw(self):
+        """
+        Render the screen.
+        """
+
         arcade.start_render()
-        self.wall_list.draw()
-        self.player_sprite.draw()
+        for row in range(ROW_COUNT):
+            for column in range(COLUMN_COUNT):
+                x = WIDTH / 2 + column * (WIDTH + MARGIN) + MARGIN
+                y = HEIGHT / 2 + row * (HEIGHT + MARGIN) + MARGIN
+                if self.grid[row][column] == 0:
+                    color = arcade.color.WHITE
+                else:
+                    color = arcade.color.GREEN
+                arcade.draw_rectangle_filled(x, y,
+                                             WIDTH, HEIGHT,
+                                             color)
 
-    def on_key_press(self, key, modifiers):
-        if key == arcade.key.UP:
-            self.player_sprite.change_y = MOVEMENT_SPEED
-        elif key == arcade.key.DOWN:
-            self.player_sprite.change_y = -MOVEMENT_SPEED
-        elif key == arcade.key.LEFT:
-            self.player_sprite.change_x = -MOVEMENT_SPEED
-        elif key == arcade.key.RIGHT:
-            self.player_sprite.change_x = MOVEMENT_SPEED
+    def on_mouse_press(self, x, y, button, key_modifiers):
+        """
+        Called when the user presses a mouse button.
+        """
+        row = y // (HEIGHT + MARGIN)
+        column = x // (WIDTH + MARGIN)
+        if self.grid[row][column] == 0:
+            self.grid[row][column] = 1
+        else:
+            self.grid[row][column] = 0
+        print("Click", row, column)
 
-    def on_key_release(self, key, modifiers):
-
-        if key == arcade.key.UP or key == arcade.key.DOWN:
-            self.player_sprite.change_y = 0
-        elif key == arcade.key.LEFT or key == arcade.key.RIGHT:
-            self.player_sprite.change_x = 0
 
 def main():
-    window = MyGame()
-    window.setup()
+
+    window = MyGame(SCREEN_WIDTH, SCREEN_HEIGHT)
     arcade.run()
 
 
