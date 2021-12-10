@@ -8,7 +8,7 @@
  "margin":0,
  "name":"reworked_tileset",
  "spacing":0,
- "tilecount":4,
+ "tilecount":5,
  "tiledversion":"1.7.2",
  "tileheight":128,
  "tiles":[
@@ -33,6 +33,12 @@
         {
          "id":3,
          "image":"tiles\/stoneHill_right.png",
+         "imageheight":128,
+         "imagewidth":128
+        }, 
+        {
+         "id":4,
+         "image":"tiles\/keyBlue.png",
          "imageheight":128,
          "imagewidth":128
         }],

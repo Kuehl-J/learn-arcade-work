@@ -244,7 +244,7 @@ class GameWindow(arcade.Window):
 
         # Pull the sprite layers out of the tile map
         self.wall_list = tile_map.sprite_lists["Walls/floor"]
-        # self.item_list = tile_map.sprite_lists["Dynamic Items"]
+        self.item_list = tile_map.sprite_lists["Items"]
         # self.ladder_list = tile_map.sprite_lists["Ladders"]
         # self.moving_sprites_list = tile_map.sprite_lists['Moving Platforms']
 
@@ -282,12 +282,12 @@ class GameWindow(arcade.Window):
 
         self.physics_engine.add_collision_handler("bullet", "wall", post_handler=wall_hit_handler)
 
-        def item_hit_handler(bullet_sprite, item_sprite, _arbiter, _space, _data):
+        def item_hit_handler(player_sprite, item_sprite, _arbiter, _space, _data):
             """ Called for bullet/wall collision """
-            bullet_sprite.remove_from_sprite_lists()
+            print("Key")
             item_sprite.remove_from_sprite_lists()
 
-        self.physics_engine.add_collision_handler("bullet", "item", post_handler=item_hit_handler)
+        self.physics_engine.add_collision_handler("player", "item", post_handler=item_hit_handler)
 
         # Add the player.
         # For the player, we set the damping to a lower value, which increases
@@ -320,9 +320,10 @@ class GameWindow(arcade.Window):
                                             body_type=arcade.PymunkPhysicsEngine.STATIC)
 
         # Create the items
-        # self.physics_engine.add_sprite_list(self.item_list,
-        #                                     friction=DYNAMIC_ITEM_FRICTION,
-        #                                     collision_type="item")
+        self.physics_engine.add_sprite_list(self.item_list,
+                                            friction=WALL_FRICTION,
+                                            collision_type="item",
+                                            body_type=arcade.PymunkPhysicsEngine.STATIC)
 
         # Add kinematic sprites
         # self.physics_engine.add_sprite_list(self.moving_sprites_list,
@@ -436,7 +437,7 @@ class GameWindow(arcade.Window):
         self.wall_list.draw()
         # self.ladder_list.draw()
         # self.moving_sprites_list.draw()
-        # self.item_list.draw()
+        self.item_list.draw()
         self.player_list.draw()
 
         # for item in self.player_list:
