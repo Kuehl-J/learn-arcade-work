@@ -1,0 +1,59 @@
+Jacob Kuehl
+12/01/2021
+Quantitative Reasoning Reflection
+
+1.)
+
+
+
+
+
+
+
+
+2.)
+
+
+
+
+
+
+
+
+
+3.)
+The main way I tested the accuracy of my code was by utilizing my "Terminal"
+to see if it would run in the first place. Often times it didn't so I would try
+to see what line wasn't working and fix it. In Lab 8 with the game I debugged
+some of my syntax and the window opened but I couldn't move my sprite, so then I
+knew to go to my on_key_press and see what is the hold up.
+
+
+
+
+
+
+
+4.)
+The limitations to using numerical methods to make decision is that they are
+black and white. They do not account for the grey areas in between; these
+hard lines they draw make it so that there is a lot of things that go
+unaccounted for. Algorithms are not always right, you mentioned being on one
+side of the political spectrum and getting content for that viewpoint, but I
+consistently get propaganda to my opposing views. I find it funny to go into
+the comment section and read all the ignorance and what I define as stupidity
+in them, and so I get more political propaganda that goes against my own views.
+
+Evaluating students based solely on metrics would be a gross simplification
+of that person. Some people study hard and still fail, some don't study and
+score well. To only look at the results ignores the processes students took to
+get there, and the material learned in class is important but the skills and
+methods they used to try to learn are things that can be applied to every facet
+of their lives in the future. As for teachers, they can't force a student to
+learn or put in the work. There has to be some sort of metrics to measure a
+student's growth and if they simply just don't do those things the professor
+can't make them and that is not their fault. Limiting athletes to only their
+stats goes similarly with evaluating students, it is not always the end result
+that matters. With sports though, there is also someone actively trying to stop
+you and if you are both even in skill then your success rate for a game will
+likely be around 50%.

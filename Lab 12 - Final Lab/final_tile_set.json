@@ -1,0 +1,14 @@
+{ "columns":2,
+ "image":"D:\/platformer-pack-redux-360-assets\/PNG\/Ground\/Stone\/stoneMid.png",
+ "imageheight":128,
+ "imagewidth":128,
+ "margin":0,
+ "name":"random",
+ "spacing":0,
+ "tilecount":4,
+ "tiledversion":"1.7.2",
+ "tileheight":64,
+ "tilewidth":64,
+ "type":"tileset",
+ "version":"1.6"
+}
