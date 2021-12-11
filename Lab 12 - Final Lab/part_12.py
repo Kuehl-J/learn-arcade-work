@@ -11,12 +11,12 @@ get A"""
 
 
 """List of things to do:
-1.) Get Tiled to work
+1.) 
 2.) 
 3.) Figure out how to make doors work to travel between levels
-4.) Get character interaction with objects in game
-5.) Input randrange damage from damage sources
-6.) Figure out spells and spell slots and how to program them
+4.) 
+5.)
+6.)
 7.) Monkeeeeeeeey """
 
 import arcade

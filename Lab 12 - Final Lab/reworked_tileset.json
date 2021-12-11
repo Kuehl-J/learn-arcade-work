@@ -8,7 +8,7 @@
  "margin":0,
  "name":"reworked_tileset",
  "spacing":0,
- "tilecount":5,
+ "tilecount":8,
  "tiledversion":"1.7.2",
  "tileheight":128,
  "tiles":[
@@ -41,6 +41,24 @@
          "image":"tiles\/keyBlue.png",
          "imageheight":128,
          "imagewidth":128
+        }, 
+        {
+         "id":8,
+         "image":"tiles\/steel_door.png",
+         "imageheight":120,
+         "imagewidth":120
+        }, 
+        {
+         "id":9,
+         "image":"tiles\/wood_door.png",
+         "imageheight":120,
+         "imagewidth":120
+        }, 
+        {
+         "id":10,
+         "image":"tiles\/bone_door.png",
+         "imageheight":120,
+         "imagewidth":120
         }],
  "tilewidth":128,
  "type":"tileset",

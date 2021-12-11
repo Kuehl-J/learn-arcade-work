@@ -147,6 +147,7 @@ class MyGame(arcade.Window):
         pan.
         """
 
+        print("scroll")
         position = self.player_sprite.center_x - self.width / 2, \
             self.player_sprite.center_y - self.height / 2
         self.camera_sprites.move_to(position, CAMERA_SPEED)

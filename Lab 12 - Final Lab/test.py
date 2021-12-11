@@ -32,7 +32,7 @@ SCREEN_HEIGHT = SPRITE_SIZE * SCREEN_GRID_HEIGHT
 # --- Physics forces. Higher number, faster accelerating.
 
 # Gravity
-GRAVITY = 1500
+GRAVITY = 1900
 
 # Damping - Amount of speed lost per second
 DEFAULT_DAMPING = 1.0
@@ -47,8 +47,8 @@ DYNAMIC_ITEM_FRICTION = 0.6
 PLAYER_MASS = 2.0
 
 # Keep player from going too fast
-PLAYER_MAX_HORIZONTAL_SPEED = 450
-PLAYER_MAX_VERTICAL_SPEED = 1600
+PLAYER_MAX_HORIZONTAL_SPEED = 250
+PLAYER_MAX_VERTICAL_SPEED = 875
 
 # Force applied while on the ground
 PLAYER_MOVE_FORCE_ON_GROUND = 8000
@@ -57,7 +57,7 @@ PLAYER_MOVE_FORCE_ON_GROUND = 8000
 PLAYER_MOVE_FORCE_IN_AIR = 900
 
 # Strength of a jump
-PLAYER_JUMP_IMPULSE = 1800
+PLAYER_JUMP_IMPULSE = 1700
 
 # Close enough to not-moving to have the animation go to idle.
 DEAD_ZONE = 0.1
@@ -68,6 +68,8 @@ LEFT_FACING = 1
 
 # How many pixels to move before we change the texture in the walking animation
 DISTANCE_TO_CHANGE_TEXTURE = 20
+
+CAMERA_SPEED = 0.2
 
 class PlayerSprite(arcade.Sprite):
     """ Player Sprite """
@@ -213,7 +215,6 @@ class GameWindow(arcade.Window):
         # Sprite lists we need
         self.player_list: Optional[arcade.SpriteList] = None
         self.wall_list: Optional[arcade.SpriteList] = None
-        self.bullet_list: Optional[arcade.SpriteList] = None
         self.item_list: Optional[arcade.SpriteList] = None
         self.moving_sprites_list: Optional[arcade.SpriteList] = None
         self.ladder_list: Optional[arcade.SpriteList] = None
@@ -229,6 +230,10 @@ class GameWindow(arcade.Window):
 
         # Set background color
         arcade.set_background_color(arcade.color.DARK_SLATE_GRAY)
+
+        # Camera
+        self.camera_sprites = arcade.Camera(SCREEN_GRID_WIDTH, SCREEN_GRID_HEIGHT)
+        self.camera_gui = arcade.Camera(SCREEN_GRID_WIDTH, SCREEN_GRID_HEIGHT)
 
     def setup(self):
         """ Set up everything with the game """
@@ -276,11 +281,57 @@ class GameWindow(arcade.Window):
         self.physics_engine = arcade.PymunkPhysicsEngine(damping=damping,
                                                          gravity=gravity)
 
-        def wall_hit_handler(bullet_sprite, _wall_sprite, _arbiter, _space, _data):
-            """ Called for bullet/wall collision """
-            bullet_sprite.remove_from_sprite_lists()
+        def setup_level_two(self):
+            """ Set up everything with the game """
 
-        self.physics_engine.add_collision_handler("bullet", "wall", post_handler=wall_hit_handler)
+            # Create the sprite lists
+            self.player_list = arcade.SpriteList()
+
+            # Map name
+            map_name = "128px_level_two.json"
+
+            # Load in TileMap
+            tile_map = arcade.load_tilemap(map_name, SPRITE_SCALING_TILES)
+
+            # Pull the sprite layers out of the tile map
+            self.wall_list = tile_map.sprite_lists["Walls_floor_2"]
+            self.item_list = tile_map.sprite_lists["Items"]
+            # self.ladder_list = tile_map.sprite_lists["Ladders"]
+            # self.moving_sprites_list = tile_map.sprite_lists['Moving Platforms']
+
+            # Create player sprite
+            self.player_sprite = PlayerSprite(self.ladder_list, hit_box_algorithm="Detailed")
+
+            # Set player location
+            grid_x = 1
+            grid_y = 2
+            self.player_sprite.center_x = SPRITE_SIZE * grid_x + SPRITE_SIZE / 2
+            self.player_sprite.center_y = SPRITE_SIZE * grid_y + SPRITE_SIZE / 2
+            # Add to player sprite list
+            self.player_list.append(self.player_sprite)
+
+            # --- Pymunk Physics Engine Setup ---
+
+            # The default damping for every object controls the percent of velocity
+            # the object will keep each second. A value of 1.0 is no speed loss,
+            # 0.9 is 10% per second, 0.1 is 90% per second.
+            # For top-down games, this is basically the friction for moving objects.
+            # For platformers with gravity, this should probably be set to 1.0.
+            # Default value is 1.0 if not specified.
+            damping = DEFAULT_DAMPING
+
+            # Set the gravity. (0, 0) is good for outer space and top-down.
+            gravity = (0, -GRAVITY)
+
+            # Create the physics engine
+            self.physics_engine = arcade.PymunkPhysicsEngine(damping=damping,
+                                                             gravity=gravity)
+
+        # def wall_hit_handler(bullet_sprite, _wall_sprite, _arbiter, _space, _data):
+        # """ Called for bullet/wall collision """
+        #     bullet_sprite.remove_from_sprite_lists()
+        #
+        # self.physics_engine.add_collision_handler("bullet", "wall", post_handler=wall_hit_handler)
 
         def item_hit_handler(player_sprite, item_sprite, _arbiter, _space, _data):
             """ Called for bullet/wall collision """
@@ -431,9 +482,28 @@ class GameWindow(arcade.Window):
             # velocity = (moving_sprite.change_x * 1 / delta_time, moving_sprite.change_y * 1 / delta_time)
             # self.physics_engine.set_velocity(moving_sprite, velocity)
 
+        if SCREEN_WIDTH - self.player_sprite.center_x < 50:
+            self.scroll_to_player()
+
+    def scroll_to_player(self):
+        """
+        Scroll the window to the player.
+
+        if CAMERA_SPEED is 1, the camera will immediately move to the desired position.
+        Anything between 0 and 1 will have the camera move to the location with a smoother
+        pan.
+        """
+
+        print("scroll")
+        position = self.player_sprite.center_x - self.width / 2, \
+            self.player_sprite.center_y - self.height / 2
+        self.camera_sprites.move_to(position, CAMERA_SPEED)
+
+
     def on_draw(self):
         """ Draw everything """
         arcade.start_render()
+
         self.wall_list.draw()
         # self.ladder_list.draw()
         # self.moving_sprites_list.draw()
@@ -444,6 +514,19 @@ class GameWindow(arcade.Window):
         #     item.draw_hit_box(arcade.color.RED)
         # for item in self.item_list:
         #     item.draw_hit_box(arcade.color.RED)
+
+
+        # self.camera_sprites.use()
+        # self.camera_gui.use()
+        # arcade.draw_rectangle_filled(self.width // 2,
+        #                              20,
+        #                              self.width,
+        #                              40,
+        #                              arcade.color.ALMOND)
+        # text = f"Scroll value: ({self.camera_sprites.position[0]:5.1f}, " \
+        #        f"{self.camera_sprites.position[1]:5.1f})"
+        # arcade.draw_text(text, 10, 10, arcade.color.BLACK_BEAN, 20)
+
 
 def main():
     """ Main function """
