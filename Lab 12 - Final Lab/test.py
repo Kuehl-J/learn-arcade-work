@@ -69,7 +69,7 @@ LEFT_FACING = 1
 # How many pixels to move before we change the texture in the walking animation
 DISTANCE_TO_CHANGE_TEXTURE = 20
 
-CAMERA_SPEED = 0.2
+CAMERA_SPEED = 0.3
 
 class PlayerSprite(arcade.Sprite):
     """ Player Sprite """
@@ -232,8 +232,8 @@ class GameWindow(arcade.Window):
         arcade.set_background_color(arcade.color.DARK_SLATE_GRAY)
 
         # Camera
-        self.camera_sprites = arcade.Camera(SCREEN_GRID_WIDTH, SCREEN_GRID_HEIGHT)
-        self.camera_gui = arcade.Camera(SCREEN_GRID_WIDTH, SCREEN_GRID_HEIGHT)
+        self.camera_sprites = arcade.Camera(SCREEN_WIDTH, SCREEN_HEIGHT)
+        self.camera_gui = arcade.Camera(SCREEN_WIDTH, SCREEN_HEIGHT)
 
     def setup(self):
         """ Set up everything with the game """
@@ -485,6 +485,7 @@ class GameWindow(arcade.Window):
         if SCREEN_WIDTH - self.player_sprite.center_x < 50:
             self.scroll_to_player()
 
+
     def scroll_to_player(self):
         """
         Scroll the window to the player.
@@ -504,6 +505,7 @@ class GameWindow(arcade.Window):
         """ Draw everything """
         arcade.start_render()
 
+        self.camera_sprites.use()
         self.wall_list.draw()
         # self.ladder_list.draw()
         # self.moving_sprites_list.draw()
