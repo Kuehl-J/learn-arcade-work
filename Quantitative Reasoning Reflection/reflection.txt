@@ -3,22 +3,29 @@ Jacob Kuehl
 Quantitative Reasoning Reflection
 
 1.)
-
-
-
-
-
-
+The biggest way I decided between which method to go with was by talking myself
+through what I wanted to do. When I wanted to have something happen under a
+certain condition I would say in my head "I want 'x' to happen if this is met."
+and then I would use an if statement. For me, it is much easier to start at the
+end and work backwards, this can't always happen with writing code but I often
+used the sample code from the online book to help get me in the right direction.
+When that didn't work I would look at my previous lab and see what I could pull
+from that to help get me going on the project. Most of my projects have taken
+code from a previous project or the book, that being said those were not always
+the right code to take but I was at least thinking about why I thought certain
+codes would or wouldn't work and which ones would be the most efficient.
 
 
 2.)
-
-
-
-
-
-
-
+The way I show my solution is fairly poor. I am very bad at using comments to
+section off parts of my code. That being said, I usually do understand the
+different parts of my code and how they affect the program. So even if I can't
+necessarily explain how something works exactly, I know the general purpose it
+serves in my code. Although I'm not good at using comments I do make sure to leave
+lines in between chunks of code to help break it apart that way, which makes it
+easier to read through on your eyes. By creating specific function names for your
+code it makes it easier look through and with those unique names using CTRL-f
+makes going to different parts of your code very efficient.
 
 
 3.)
@@ -26,12 +33,14 @@ The main way I tested the accuracy of my code was by utilizing my "Terminal"
 to see if it would run in the first place. Often times it didn't so I would try
 to see what line wasn't working and fix it. In Lab 8 with the game I debugged
 some of my syntax and the window opened but I couldn't move my sprite, so then I
-knew to go to my on_key_press and see what is the hold up.
-
-
-
-
-
+knew to go to my on_key_press and see what was the hold up. Other ways I tested
+my code was simply by trial and error, when having to draw the pictures I
+couldn't remember how to do the triangles so I just made points and refined it
+until it was the size I wanted. When that all failed I would ask for help. I
+determined the accuracy of my code by running it multiple times to see if I
+would notice something pop up after running it, or I would make small changes to
+see if it would keep working. This was normally done by moving around the order
+in which things were typed.
 
 
 4.)

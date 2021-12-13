@@ -3,7 +3,10 @@ All images and sounds come from Kenny.nl
 https://www.kenney.nl/assets
 
 Forcing to restart the game every time you fall off is intentional, to really
-help feel the sting.
+help feel the sting. Think being forced to watch the same cinematic before a boss
+fight over and over and over and over again unable to skip it no matter how many
+times you fail. If you play this game and don't get frustrated either I have
+failed, or you are a professional at platformers.
 """
 
 from typing import Optional
