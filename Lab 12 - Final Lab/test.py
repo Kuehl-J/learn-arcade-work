@@ -7,6 +7,9 @@ help feel the sting. Think being forced to watch the same cinematic before a bos
 fight over and over and over and over again unable to skip it no matter how many
 times you fail. If you play this game and don't get frustrated either I have
 failed, or you are a professional at platformers.
+
+The game seems to be a bit glitchy in the beginning but as you continue to play
+it gets less for some reason.
 """
 
 from typing import Optional
@@ -180,8 +183,8 @@ def setup_test_two():
     room.background = arcade.color.DARK_SLATE_GRAY
 
     # Setting up player position
-    room.grid_x = 46
-    room.grid_y = 33
+    room.grid_x = 2
+    room.grid_y = 98
 
     map_name = "128px_level_two.json"
 
@@ -260,6 +263,14 @@ class GameWindow(arcade.Window):
         self.rooms = None
         self.current_room = 0
 
+        """To avoid screeching noise did not put in a wall collision sound
+        due to walls and floors being grouped as one."""
+
+        self.door_sound = arcade.load_sound("door_latch.ogg")
+        self.moving_sound = arcade.load_sound("footstep00.ogg")
+        self.jump_sound = arcade.load_sound("footstep08.ogg")
+
+
 
         # Track the current state of what key is pressed
         self.left_pressed: bool = False
@@ -337,13 +348,11 @@ class GameWindow(arcade.Window):
             self.current_room += 1
             item_sprite.remove_from_sprite_lists()
             self.physics_engine = self.physics_engine2
+            arcade.play_sound(self.door_sound)
 
 
         self.physics_engine.add_collision_handler("player", "item", post_handler=item_hit_handler)
         self.physics_engine2.add_collision_handler("player", "item", post_handler=item_hit_handler)
-
-
-
 
 
         # Add the player.
@@ -406,10 +415,13 @@ class GameWindow(arcade.Window):
 
         if key == arcade.key.LEFT:
             self.left_pressed = True
+            arcade.play_sound(self.moving_sound)
         elif key == arcade.key.RIGHT:
             self.right_pressed = True
+            arcade.play_sound(self.moving_sound)
         elif key == arcade.key.UP:
             self.up_pressed = True
+            arcade.play_sound(self.jump_sound)
             # find out if player is standing on ground, and not on a ladder
             if self.physics_engine.is_on_ground(self.player_sprite) \
                     and not self.player_sprite.is_on_ladder:
@@ -492,6 +504,7 @@ class GameWindow(arcade.Window):
         position = self.player_sprite.center_x - self.width / 2, \
             self.player_sprite.center_y - self.height / 2
         self.camera_sprites.move_to(position, CAMERA_SPEED)
+
 
 
     def on_draw(self):
